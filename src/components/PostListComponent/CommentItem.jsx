@@ -1,3 +1,4 @@
+import { Button } from "react-bootstrap";
 import React from "react";
 
 import "./PostListComponent.css";
@@ -7,11 +8,16 @@ const CommentItem = (props) => {
 
   return (
     <div className="commentItem">
-      <div className="comment_content">
-        <img className="comment__profile__image" src={user.profileImageUrl} />
-        <span>{user.username}:</span>
+      <div className="comment">
+        <div className="comment_content">
+          <img className="comment__profile__image" src={user.profileImageUrl} />
+          <span>{user.username}:</span>
+        </div>
+        <span>{content}</span>
       </div>
-      <span>{content}</span>
+      <div className="comment__actions" size="sm">
+        X
+      </div>
     </div>
   );
 };
