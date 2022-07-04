@@ -1,0 +1,19 @@
+.createPostComponent {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 50px;
+   
+  }
+
+  
+.createPostComponent__form {
+    width: 460px;
+    background-color: rgba(241, 241, 241, 0.74);
+    border-radius: 25px;
+    padding: 30px !important;
+    font-size: 23px;
+    margin-top: 10vh;
+  }
+  

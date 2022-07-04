@@ -1,0 +1,36 @@
+.loginPage {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+ 
+}
+
+.formLogin {
+  width: 460px;
+  background-color: rgba(241, 241, 241, 0.74);
+  border-radius: 25px;
+  padding: 30px !important;
+  font-size: 23px;
+  margin-top: 10vh;
+}
+
+.text {
+  display: flex;
+  flex-basis: 100%;
+  align-items: center;
+  color: rgba(0, 0, 0, 0.692);
+  margin: 8px 0px;
+  font-size: 20px;
+}
+.text::before,
+.text::after {
+  content: "";
+  flex-grow: 1;
+  background: rgb(0, 0, 0, 0.692);
+  height: 1px;
+  font-size: 0px;
+  line-height: 0px;
+  margin: 0px 8px;
+}
