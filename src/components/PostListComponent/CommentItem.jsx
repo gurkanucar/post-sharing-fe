@@ -10,7 +10,6 @@ const CommentItem = (props) => {
 
   const onDeleteClick = async () => {
     await removeComment({ post: { id: postId }, comment: { ...comment } });
-    //updateComments();
   };
 
   return (

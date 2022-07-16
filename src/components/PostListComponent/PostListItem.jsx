@@ -11,37 +11,21 @@ import { addLike, getComments, removeLike } from "../../api/apiCalls";
 
 const PostListItem = (props) => {
   const { activeUser, post } = props;
-
   const { user, content, likedUsers, comments } = post;
-
   const [showComments, setShowComments] = useState(false);
-  const [commentsState, setCommentsState] = useState(comments);
-
-  //const [newComment, setnewComment] = useState();
 
   const addLikeFunc = async () => {
-    const updatedLikes = (
-      await addLike({
-        post: { id: post.id },
-        user: { id: activeUser.id, username: activeUser.username },
-      })
-    ).data.likedUsers;
-    // updateComments();
+    addLike({
+      post: { id: post.id },
+      user: { id: activeUser.id, username: activeUser.username },
+    });
   };
   const removeLikeFunc = async () => {
-    const updatedLikes = (
-      await removeLike({
-        post: { id: post.id },
-        user: { id: activeUser.id, username: activeUser.username },
-      })
-    ).data.likedUsers;
-    //updateComments();
+    removeLike({
+      post: { id: post.id },
+      user: { id: activeUser.id, username: activeUser.username },
+    });
   };
-  // const updateComments = async () => {
-  //   const posts = await (await getComments(post.id)).data;
-  //   console.log(posts);
-  //   setCommentsState(posts);
-  // };
 
   return (
     <div className="postItem">
@@ -104,7 +88,6 @@ const PostListItem = (props) => {
             {comments != undefined ? (
               comments?.map((x) => (
                 <CommentItem
-                  //updateComments={updateComments}
                   postId={post.id}
                   comment={x}
                   activeUser={activeUser}
@@ -115,11 +98,7 @@ const PostListItem = (props) => {
               <Spinner />
             )}
           </div>
-          <CommentCreateInput
-            activeUser={activeUser}
-            //updateComments={updateComments}
-            postId={post.id}
-          />
+          <CommentCreateInput activeUser={activeUser} postId={post.id} />
         </div>
       )}
     </div>
