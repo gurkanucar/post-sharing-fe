@@ -1,20 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 
 import "./CreatePostComponent.css";
 
+import { IoIosSend } from "react-icons/io";
+
 import { Container, Form, Button, Image } from "react-bootstrap";
-const CreatePostComponent = () => {
+import { createPost } from "../../api/apiCalls";
+const CreatePostComponent = (props) => {
+  const { content, setContent, createPostFunction } = props;
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    createPostFunction();
+  };
+
   return (
     <div className="createPostComponent">
-      <Form className="createPostComponent__form">
-        <Form.Group className="mb-3 text-start">
-          <Form.Label>Content</Form.Label>
-          <Form.Control type="text" placeholder="..." />
-        </Form.Group>
-        <Button variant="primary" type="submit">
-          Submit Post!
-        </Button>
-      </Form>
+      <form onSubmit={onSubmit} className="createPostComponent__form">
+        <input
+          required
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="type something.."
+          className="createPostComponent__input"
+        />
+        <button className="createPostComponent__button" type="submit">
+          <IoIosSend /> Send
+        </button>
+      </form>
     </div>
   );
 };

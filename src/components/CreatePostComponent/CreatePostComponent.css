@@ -1,19 +1,48 @@
 .createPostComponent {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 50px;
-   
-  }
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  filter: drop-shadow(0px 4px 23px rgba(0, 0, 0, 0.25));
+}
 
-  
 .createPostComponent__form {
-    width: 460px;
-    background-color: rgba(241, 241, 241, 0.74);
-    border-radius: 25px;
-    padding: 30px !important;
-    font-size: 23px;
-    margin-top: 10vh;
-  }
-  
+  width: 50%;
+  border-radius: 25px;
+  padding: 30px !important;
+  font-size: 23px;
+  margin-top: 10vh;
+  background: #ffffff;
+}
+
+.createPostComponent__input {
+  box-sizing: border-box;
+  font-size: 18px;
+  padding: 10px;
+  width: 90%;
+  height: 37px;
+  background: #ffffff;
+  border: 1px solid #9b9b9b;
+  border-radius: 7px;
+}
+
+.createPostComponent__input:hover {
+  border: 1px solid #535353;
+}
+
+.createPostComponent__button {
+  width: 150px;
+  font-size: 20px;
+  color: white;
+  background: #2e68ff;
+  border: none;
+  border-radius: 11px;
+  margin-top: 20px;
+}
+.createPostComponent__button:hover {
+  background: #0739BA;
+}
+
+.createPostComponent__button:active {
+  background: #031b57;
+}
