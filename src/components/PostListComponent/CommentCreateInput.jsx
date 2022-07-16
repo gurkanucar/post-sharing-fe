@@ -1,14 +1,43 @@
 import { Form, Button } from "react-bootstrap";
-import React from "react";
+import React, { useState } from "react";
 import "./PostListComponent.css";
-
+import { IoIosSend } from "react-icons/io";
+import { addComment } from "../../api/apiCalls";
 const CommentCreateInput = (props) => {
+  const { postId, updateComments, activeUser } = props;
+
+  const [newComment, setNewComment] = useState("");
+
+  const createCommentFunction = async (e) => {
+    e.preventDefault();
+    if (newComment != "" && newComment != undefined) {
+      const obj = {
+        post: { id: postId },
+        comment: {
+          content: newComment,
+          user: { id: activeUser.id, username: activeUser.username },
+        },
+      };
+      await addComment(obj);
+      await setNewComment("");
+      updateComments();
+    }
+  };
+
   return (
-    <div className="createCommentItem p-2">
-      <div className="createCommentContent">
-        <Form.Control placeholder="your comment.."></Form.Control>
-        <Button>></Button>
-      </div>
+    <div className="createCommentItem">
+      <form onSubmit={createCommentFunction} className="createCommentContent">
+        <input
+          required
+          onChange={(e) => setNewComment(e.target.value)}
+          value={newComment}
+          className="createCommentComponent__input"
+          placeholder="your comment.."
+        />
+        <button className="createCommentComponent__button" type="submit">
+          <IoIosSend />
+        </button>
+      </form>
     </div>
   );
 };
