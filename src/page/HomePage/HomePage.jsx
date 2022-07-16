@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import "./HomePage.css";
 import { NavbarComponent } from "../../components/NavbarComponent/NavbarComponent";
 import { FiRefreshCw } from "react-icons/fi";
+import { BASE_URL } from "../../constants";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -14,7 +15,7 @@ const HomePage = () => {
   const user = useSelector((state) => state.auth.value.user);
 
   useEffect(() => {
-    let url = "http://localhost:8080/post/stream";
+    let url = BASE_URL + "/post/stream";
     const sse = new EventSource(url);
 
     sse.addEventListener("post-list-event", (event) => {
