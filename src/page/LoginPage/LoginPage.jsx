@@ -31,8 +31,7 @@ const LoginPage = () => {
 
   return (
     <Container className="loginPage">
-  
-      {/* <CreatePostComponent />
+      {/*  <CreatePostComponent />*/}
       <Form className="formLogin" onSubmit={loginHandler}>
         <Form.Group className="mb-3 text-start" controlId="formBasicUsername">
           <Form.Label>Username</Form.Label>
@@ -55,7 +54,7 @@ const LoginPage = () => {
           </Button>
         </div>
         <br />
-      </Form> */}
+      </Form>
     </Container>
   );
 };
