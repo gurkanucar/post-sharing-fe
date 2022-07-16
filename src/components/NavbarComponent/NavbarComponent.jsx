@@ -9,6 +9,8 @@ import Button from "react-bootstrap/Button";
 import { useSelector, useDispatch } from "react-redux";
 import { add, removeFromToastList } from "../../store/deliveredNotifs";
 import { useNavigate } from "react-router-dom";
+import { ToastComponent } from "../ToastComponent/ToastComponent";
+import { BASE_URL } from "../../constants";
 
 export const NavbarComponent = () => {
   const user = useSelector((state) => state.auth.value.user);
@@ -24,7 +26,7 @@ export const NavbarComponent = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    let url = "http://localhost:8080/push-notifications/" + user.id;
+    let url = BASE_URL + "/push-notifications/" + user.id;
     const sse = new EventSource(url);
 
     sse.addEventListener("user-list-event", (event) => {
@@ -58,6 +60,9 @@ export const NavbarComponent = () => {
               </Badge>
             </Button>
           </NavLink>
+          <NavLink>
+            <h4>{"@" + user.username}</h4>
+          </NavLink>
         </div>
       </Container>
       <div
@@ -71,22 +76,7 @@ export const NavbarComponent = () => {
         }}
       >
         {notifToastList.map((x, index) => (
-          <Toast
-            style={{
-              color: "white",
-              fontSize: "20px",
-              borderRadius: 8,
-              backgroundColor: "#2E68FF",
-            }}
-            key={x.id}
-            autohide={true}
-            delay={3500}
-            onClose={() => {
-              dispatch(removeFromToastList({ notif: x }));
-            }}
-          >
-            <Toast.Body>{x.content}</Toast.Body>
-          </Toast>
+          <ToastComponent notif={x} />
         ))}
       </div>
     </Navbar>
