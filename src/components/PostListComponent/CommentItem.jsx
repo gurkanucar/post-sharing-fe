@@ -5,12 +5,12 @@ import "./PostListComponent.css";
 import { removeComment } from "../../api/apiCalls";
 
 const CommentItem = (props) => {
-  const { activeUser, comment, postId, updateComments } = props;
+  const { activeUser, comment, postId } = props;
   const { content, user } = comment;
 
   const onDeleteClick = async () => {
     await removeComment({ post: { id: postId }, comment: { ...comment } });
-    updateComments();
+    //updateComments();
   };
 
   return (

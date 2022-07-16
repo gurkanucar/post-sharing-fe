@@ -4,7 +4,7 @@ import "./PostListComponent.css";
 import { IoIosSend } from "react-icons/io";
 import { addComment } from "../../api/apiCalls";
 const CommentCreateInput = (props) => {
-  const { postId, updateComments, activeUser } = props;
+  const { postId, activeUser } = props;
 
   const [newComment, setNewComment] = useState("");
 
@@ -20,7 +20,6 @@ const CommentCreateInput = (props) => {
       };
       await addComment(obj);
       await setNewComment("");
-      updateComments();
     }
   };
 
