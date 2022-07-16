@@ -37,3 +37,11 @@ export const removeComment = (commentRequest) => {
   console.log(commentRequest);
   return axios.delete(BASE_URL + "/post/comment", { data: commentRequest });
 };
+
+export const getAllNotifs = (userID) => {
+  return axios.get(BASE_URL + "/notification/" + userID);
+};
+
+export const changeNotifStatusToRead = (notifID) => {
+  return axios.patch(BASE_URL + "/notification/read/" + notifID);
+};
