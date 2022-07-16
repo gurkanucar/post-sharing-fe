@@ -1,23 +1,30 @@
 import { Button } from "react-bootstrap";
 import React from "react";
-
+import { FaTrash } from "react-icons/fa";
 import "./PostListComponent.css";
+import { removeComment } from "../../api/apiCalls";
 
 const CommentItem = (props) => {
-  const { content, user } = props.comment;
+  const { activeUser, comment, postId, updateComments } = props;
+  const { content, user } = comment;
+
+  const onDeleteClick = async () => {
+    await removeComment({ post: { id: postId }, comment: { ...comment } });
+    updateComments();
+  };
 
   return (
     <div className="commentItem">
-      <div className="comment">
-        <div className="comment_content">
-          <img className="comment__profile__image" src={user.profileImageUrl} />
-          <span>{user.username}:</span>
-        </div>
+      <div className="comment_content">
+        <img className="comment__profile__image" src={user.profileImageUrl} />
+        <span className="comment__username">{user.username}:</span>
         <span>{content}</span>
       </div>
-      <div className="comment__actions" size="sm">
-        X
-      </div>
+      {activeUser.username == user.username && (
+        <div className="comment__actions" onClick={onDeleteClick}>
+          <FaTrash />
+        </div>
+      )}
     </div>
   );
 };
