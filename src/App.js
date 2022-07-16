@@ -5,6 +5,7 @@ import LoginPage from "./page/LoginPage/LoginPage";
 import { PrivateRoute } from "./components/PrivateRoute/PrivateRoute";
 import NotFoundPage from "./page/NotFoundPage/NotFoundPage";
 import { Route, Routes } from "react-router-dom";
+import { NotifPage } from "./page/NotifPage/NotifPage";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path="*" element={<NotFoundPage />} />
         <Route path="/" element={<PrivateRoute />}>
           <Route path="/home" element={<HomePage />} />
-
+          <Route path="/notif" element={<NotifPage />} />
           {/* <Route path="/addresses/details/:id" element={<DetailPage />} /> */}
         </Route>
         <Route path="/login" element={<LoginPage />} />
