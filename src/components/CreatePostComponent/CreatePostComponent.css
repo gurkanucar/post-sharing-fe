@@ -7,7 +7,7 @@
 }
 
 .createPostComponent__form {
-  width: 50%;
+  width: 75%;
   border-radius: 25px;
   padding: 30px !important;
   font-size: 23px;
@@ -40,7 +40,7 @@
   margin-top: 20px;
 }
 .createPostComponent__button:hover {
-  background: #0739BA;
+  background: #0739ba;
 }
 
 .createPostComponent__button:active {
