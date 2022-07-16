@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Button, Spinner } from "react-bootstrap";
 import CommentCreateInput from "./CommentCreateInput";
 import CommentItem from "./CommentItem";
-
+// import ReactTooltip from "react-tooltip";
 import { BsHeart, BsFillHeartFill } from "react-icons/bs";
 import { BiComment, BiMenu } from "react-icons/bi";
 import "./PostListComponent.css";
-import { getComments } from "../../api/apiCalls";
+import { addLike, getComments, removeLike } from "../../api/apiCalls";
 
 const PostListItem = (props) => {
   const { activeUser, post } = props;
@@ -15,8 +15,33 @@ const PostListItem = (props) => {
 
   const [showComments, setShowComments] = useState(false);
   const [commentsState, setCommentsState] = useState(comments);
+
+  const [likeState, setLikeState] = useState(likedUsers);
+
+  let fooRef = useRef();
+
   //const [newComment, setnewComment] = useState();
 
+  const addLikeFunc = async () => {
+    const updatedLikes = (
+      await addLike({
+        post: { id: post.id },
+        user: { id: activeUser.id, username: activeUser.username },
+      })
+    ).data.likedUsers;
+    setLikeState(updatedLikes);
+    updateComments();
+  };
+  const removeLikeFunc = async () => {
+    const updatedLikes = (
+      await removeLike({
+        post: { id: post.id },
+        user: { id: activeUser.id, username: activeUser.username },
+      })
+    ).data.likedUsers;
+    setLikeState(updatedLikes);
+    updateComments();
+  };
   const updateComments = async () => {
     const posts = await (await getComments(post.id)).data;
     console.log(posts);
@@ -37,14 +62,31 @@ const PostListItem = (props) => {
       <hr></hr>
 
       <div className="postItem__actions">
-        <BsHeart className="action__item" size={20} />
-        <BsFillHeartFill className="action__item" size={20} color="red" />
+        <div
+          className="likeCount"
+          title={likeState.map((x) => x.username).join("\n")}
+        >
+          {likeState.find((x) => x.username == activeUser.username) !=
+          undefined ? (
+            <BsFillHeartFill
+              onClick={removeLikeFunc}
+              className="action__item"
+              size={20}
+              color="red"
+            />
+          ) : (
+            <BsHeart onClick={addLikeFunc} className="action__item" size={20} />
+          )}
 
-        <BiComment
-          className="action__item"
-          size={20}
-          onClick={() => setShowComments(!showComments)}
-        />
+          <span className="likeCountText">{likeState.length}</span>
+        </div>
+        <div>
+          <BiComment
+            className="action__item"
+            size={20}
+            onClick={() => setShowComments(!showComments)}
+          />
+        </div>
       </div>
       {showComments && (
         <div>
@@ -64,7 +106,7 @@ const PostListItem = (props) => {
             )}
           </div>
           <CommentCreateInput
-             activeUser={activeUser}
+            activeUser={activeUser}
             updateComments={updateComments}
             postId={post.id}
           />
