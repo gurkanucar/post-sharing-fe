@@ -4,26 +4,23 @@ import PostListItem from "./PostListItem";
 
 import "./PostListComponent.css";
 
-
-const PostListComponent = () => {
-  const [posts, setPosts] = useState([]);
-
-  useEffect(() => {
-    loadAllPosts();
-  }, []);
-
-  const loadAllPosts = async () => {
-    try {
-      const response = await getAllPosts();
-      setPosts(response.data);
-    } catch (error) {}
-  };
+const PostListComponent = (props) => {
+  const {
+    posts,
+    activeUser,
+  } = props;
 
   return (
     <div className="postListComponent">
-      {posts?.map((post, index) => (
-        <PostListItem key={post.id} post={post} />
-      ))}
+      {posts
+        // ?.sort((a, b) => new Date(b.created) - new Date(a.created))
+        .map((post, index) => (
+          <PostListItem
+            key={post.id}
+            post={post}
+            activeUser={activeUser}
+          />
+        ))}
     </div>
   );
 };

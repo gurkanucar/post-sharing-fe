@@ -1,42 +1,73 @@
 import React, { useState } from "react";
-import { Button } from "react-bootstrap";
+import { Button, Spinner } from "react-bootstrap";
 import CommentCreateInput from "./CommentCreateInput";
 import CommentItem from "./CommentItem";
 
+import { BsHeart, BsFillHeartFill } from "react-icons/bs";
+import { BiComment, BiMenu } from "react-icons/bi";
 import "./PostListComponent.css";
+import { getComments } from "../../api/apiCalls";
 
 const PostListItem = (props) => {
-  const { user, content, likedUsers, comments } = props.post;
+  const { activeUser, post } = props;
+
+  const { user, content, likedUsers, comments } = post;
 
   const [showComments, setShowComments] = useState(false);
+  const [commentsState, setCommentsState] = useState(comments);
+  //const [newComment, setnewComment] = useState();
+
+  const updateComments = async () => {
+    const posts = await (await getComments(post.id)).data;
+    console.log(posts);
+    setCommentsState(posts);
+  };
 
   return (
     <div className="postItem">
-      <div className="postItem__user">
-        <img className="profile__image" src={user.profileImageUrl} />
-        <span>{user.username}</span>
+      <div className="postItem__top">
+        <div>
+          <img className="profile__image" src={user.profileImageUrl} />
+          <span className="top__username">{user.username}</span>
+        </div>
+        <BiMenu size={20} className="action__item" />
       </div>
 
       <div className="content">{content}</div>
       <hr></hr>
 
       <div className="postItem__actions">
-        <Button size="sm" variant="dark">
-          Like
-        </Button>
-        <Button size="sm" onClick={() => setShowComments(!showComments)}>
-          Comment
-        </Button>
+        <BsHeart className="action__item" size={20} />
+        <BsFillHeartFill className="action__item" size={20} color="red" />
+
+        <BiComment
+          className="action__item"
+          size={20}
+          onClick={() => setShowComments(!showComments)}
+        />
       </div>
       {showComments && (
         <div>
           <div className="commentList">
-            {comments?.map((x) => (
-              <CommentItem comment={x} key={x.id} />
-            ))}
+            {commentsState != undefined ? (
+              commentsState?.map((x) => (
+                <CommentItem
+                  updateComments={updateComments}
+                  postId={post.id}
+                  comment={x}
+                  activeUser={activeUser}
+                  key={x.id}
+                />
+              ))
+            ) : (
+              <Spinner />
+            )}
           </div>
-          <br />
-          <CommentCreateInput />
+          <CommentCreateInput
+             activeUser={activeUser}
+            updateComments={updateComments}
+            postId={post.id}
+          />
         </div>
       )}
     </div>

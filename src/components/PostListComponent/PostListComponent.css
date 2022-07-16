@@ -1,20 +1,63 @@
 .postItem {
+  user-select: none;
   margin: 20px;
   padding: 15px;
-  background-color: rgb(243, 243, 243);
+  background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   border-radius: 20px;
   width: 50%;
+  filter: drop-shadow(0px 4px 23px rgba(0, 0, 0, 0.25));
 }
 
-.postItem__user {
+
+.createCommentComponent__input {
+  border: 0;
+  outline: 0;
+  box-sizing: border-box;
+  font-size: 18px;
+  padding: 10px;
+  width: 90%;
+  height: 37px;
+  background: #ffffff;
+  border-bottom: 1px solid #9b9b9b;
+}
+
+.createCommentComponent__input:hover {
+  border-bottom: 1px solid #535353;
+}
+
+
+
+.createCommentComponent__button {
+  width: 50px;
+  height: 35px;
+  font-size: 20px;
+  color: white;
+  background: #2e68ff;
+  border: none;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+.createCommentComponent__button:hover {
+  background: #0739ba;
+}
+
+.createCommentComponent__button:active {
+  background: #031b57;
+}
+
+.top__username {
+  font-weight: 700;
+  margin-left: 20px;
+}
+
+.postItem__top {
   display: flex;
   flex-direction: row;
   align-items: center;
   gap: 30px;
-  font-weight: 700;
-  /* justify-content: space-between; */
+  justify-content: space-between;
 }
 
 .postItem__actions {
@@ -26,7 +69,16 @@
   /* justify-content: space-between; */
 }
 
+.action__item {
+  cursor: pointer;
+  transition: 0.2ms ease-in-out;
+}
+.action__item:hover {
+  transform: scale(1.1);
+}
+
 .profile__image {
+  user-select: none;
   height: 50px;
   width: 50px;
   object-fit: cover;
@@ -46,6 +98,7 @@
   background-color: rgb(255, 255, 255);
   display: flex;
   justify-content: space-between;
+  align-items: center;
   flex-direction: row;
   border-radius: 20px;
 }
@@ -61,20 +114,35 @@
 
 .comment {
   padding: 5px 5px 5px 15px;
-  gap: 20px;
+  gap: 15px;
   background-color: rgb(255, 255, 255);
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-direction: row;
   border-radius: 20px;
+}
+
+.comment__username{
+  font-weight: 700;
+  margin-right: 15px;
 }
 
 .comment__actions {
   color: white;
   padding: 5px 10px 5px 10px;
   margin: 5px 10px 5px 0px;
+  width: 30px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  font-size: 12px;
+  text-align: center;
+  height: 30px;
   background-color: rgb(255, 37, 37);
   border-radius: 20px;
+  cursor: pointer;
 }
 
 .commentList {
@@ -98,6 +166,7 @@
   padding: 5px 10px 5px 10px;
   display: flex;
   width: 100%;
+  align-items: center;
   justify-content: space-between;
 }
 
@@ -105,4 +174,5 @@
   margin: 15px 5px 5px 20px;
   display: flex;
   justify-content: start;
+  text-align: start;
 }
