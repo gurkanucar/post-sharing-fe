@@ -25,10 +25,16 @@ export const removeLike = (likeRequest) => {
   return axios.delete(BASE_URL + "/post/like", likeRequest);
 };
 
+export const getComments = (postID) => {
+  return axios.get(BASE_URL + "/post/comment/"+postID);
+};
+
+
 export const addComment = (commentRequest) => {
   return axios.post(BASE_URL + "/post/comment", commentRequest);
 };
 
 export const removeComment = (commentRequest) => {
-  return axios.delete(BASE_URL + "/post/comment", commentRequest);
+  console.log(commentRequest);
+  return axios.delete(BASE_URL + "/post/comment", { data: commentRequest });
 };
