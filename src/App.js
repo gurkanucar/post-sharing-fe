@@ -16,7 +16,7 @@ function App() {
 
           {/* <Route path="/addresses/details/:id" element={<DetailPage />} /> */}
         </Route>
-        <Route path="/login" element={<HomePage />} />
+        <Route path="/login" element={<LoginPage />} />
       </Routes>
     </div>
   );
