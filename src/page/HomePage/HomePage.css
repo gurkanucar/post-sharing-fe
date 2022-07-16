@@ -3,3 +3,14 @@
   justify-content: center;
   align-items: center;
 }
+
+.refresh{
+  cursor: pointer;
+  margin-top: 50px;
+  transition: 0.2s ease-in-out;
+}
+
+
+.refresh:hover{
+  transform: scale(1.2);
+}

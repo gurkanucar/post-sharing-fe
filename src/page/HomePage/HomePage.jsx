@@ -4,6 +4,8 @@ import CreatePostComponent from "../../components/CreatePostComponent/CreatePost
 import PostListComponent from "../../components/PostListComponent/PostListComponent";
 import { useSelector } from "react-redux";
 import "./HomePage.css";
+import { NavbarComponent } from "../../components/NavbarComponent/NavbarComponent";
+import { FiRefreshCw } from "react-icons/fi";
 
 const HomePage = () => {
   const [posts, setPosts] = useState([]);
@@ -12,8 +14,25 @@ const HomePage = () => {
   const user = useSelector((state) => state.auth.value.user);
 
   useEffect(() => {
-    loadAllPosts();
+    let url = "http://localhost:8080/post/stream";
+    const sse = new EventSource(url);
+
+    sse.addEventListener("post-list-event", (event) => {
+      const data = JSON.parse(event.data);
+      setPosts(data);
+    });
+
+    sse.onerror = () => {
+      sse.close();
+    };
+    return () => {
+      sse.close();
+    };
   }, []);
+
+  // useEffect(() => {
+  //   loadAllPosts();
+  // }, []);
 
   const createPostFunction = async () => {
     if (content != "") {
@@ -22,26 +41,28 @@ const HomePage = () => {
         content,
       });
       setContent("");
-      loadAllPosts();
+      // loadAllPosts();
     } else {
       alert("Error!");
     }
   };
 
-  const loadAllPosts = async () => {
-    try {
-      const response = await getAllPosts();
-      setPosts(response.data);
-    } catch (error) {}
-  };
+  // const loadAllPosts = async () => {
+  //   try {
+  //     const response = await getAllPosts();
+  //     setPosts(response.data);
+  //   } catch (error) {}
+  // };
 
   return (
     <div className="homePage">
+      <NavbarComponent />
       <CreatePostComponent
         createPostFunction={createPostFunction}
         content={content}
         setContent={setContent}
       />
+      {/* <FiRefreshCw onClick={loadAllPosts} className="refresh" size={35} /> */}
       <PostListComponent posts={posts} activeUser={user} />
     </div>
   );

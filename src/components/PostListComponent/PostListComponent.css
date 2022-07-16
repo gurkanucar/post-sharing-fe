@@ -184,3 +184,13 @@
 .likeCountText {
   margin-left: 10px;
 }
+
+.commentCount {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+
+.commentCountText {
+  margin-left: 10px;
+}

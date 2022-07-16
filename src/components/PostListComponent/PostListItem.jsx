@@ -5,6 +5,7 @@ import CommentItem from "./CommentItem";
 // import ReactTooltip from "react-tooltip";
 import { BsHeart, BsFillHeartFill } from "react-icons/bs";
 import { BiComment, BiMenu } from "react-icons/bi";
+import { MdMessage } from "react-icons/md";
 import "./PostListComponent.css";
 import { addLike, getComments, removeLike } from "../../api/apiCalls";
 
@@ -16,10 +17,6 @@ const PostListItem = (props) => {
   const [showComments, setShowComments] = useState(false);
   const [commentsState, setCommentsState] = useState(comments);
 
-  const [likeState, setLikeState] = useState(likedUsers);
-
-  let fooRef = useRef();
-
   //const [newComment, setnewComment] = useState();
 
   const addLikeFunc = async () => {
@@ -29,8 +26,7 @@ const PostListItem = (props) => {
         user: { id: activeUser.id, username: activeUser.username },
       })
     ).data.likedUsers;
-    setLikeState(updatedLikes);
-    updateComments();
+    // updateComments();
   };
   const removeLikeFunc = async () => {
     const updatedLikes = (
@@ -39,14 +35,13 @@ const PostListItem = (props) => {
         user: { id: activeUser.id, username: activeUser.username },
       })
     ).data.likedUsers;
-    setLikeState(updatedLikes);
-    updateComments();
+    //updateComments();
   };
-  const updateComments = async () => {
-    const posts = await (await getComments(post.id)).data;
-    console.log(posts);
-    setCommentsState(posts);
-  };
+  // const updateComments = async () => {
+  //   const posts = await (await getComments(post.id)).data;
+  //   console.log(posts);
+  //   setCommentsState(posts);
+  // };
 
   return (
     <div className="postItem">
@@ -64,9 +59,9 @@ const PostListItem = (props) => {
       <div className="postItem__actions">
         <div
           className="likeCount"
-          title={likeState.map((x) => x.username).join("\n")}
+          title={likedUsers.map((x) => x.username).join("\n")}
         >
-          {likeState.find((x) => x.username == activeUser.username) !=
+          {likedUsers.find((x) => x.username == activeUser.username) !=
           undefined ? (
             <BsFillHeartFill
               onClick={removeLikeFunc}
@@ -78,23 +73,38 @@ const PostListItem = (props) => {
             <BsHeart onClick={addLikeFunc} className="action__item" size={20} />
           )}
 
-          <span className="likeCountText">{likeState.length}</span>
+          <span className="likeCountText">{likedUsers.length}</span>
         </div>
         <div>
-          <BiComment
-            className="action__item"
-            size={20}
-            onClick={() => setShowComments(!showComments)}
-          />
+          <div className="commentCount">
+            {comments.length > 0 ? (
+              <MdMessage
+                className="action__item"
+                size={20}
+                onClick={() => {
+                  setShowComments(!showComments);
+                }}
+              />
+            ) : (
+              <BiComment
+                className="action__item"
+                size={20}
+                onClick={() => {
+                  setShowComments(!showComments);
+                }}
+              />
+            )}
+            <span className="commentCountText">{comments.length}</span>
+          </div>
         </div>
       </div>
       {showComments && (
         <div>
           <div className="commentList">
-            {commentsState != undefined ? (
-              commentsState?.map((x) => (
+            {comments != undefined ? (
+              comments?.map((x) => (
                 <CommentItem
-                  updateComments={updateComments}
+                  //updateComments={updateComments}
                   postId={post.id}
                   comment={x}
                   activeUser={activeUser}
@@ -107,7 +117,7 @@ const PostListItem = (props) => {
           </div>
           <CommentCreateInput
             activeUser={activeUser}
-            updateComments={updateComments}
+            //updateComments={updateComments}
             postId={post.id}
           />
         </div>

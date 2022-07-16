@@ -5,21 +5,14 @@ import PostListItem from "./PostListItem";
 import "./PostListComponent.css";
 
 const PostListComponent = (props) => {
-  const {
-    posts,
-    activeUser,
-  } = props;
+  const { posts, activeUser } = props;
 
   return (
     <div className="postListComponent">
       {posts
-        // ?.sort((a, b) => new Date(b.created) - new Date(a.created))
+        .sort((a, b) => new Date(b.created) - new Date(a.created))
         .map((post, index) => (
-          <PostListItem
-            key={post.id}
-            post={post}
-            activeUser={activeUser}
-          />
+          <PostListItem key={post.id} post={post} activeUser={activeUser} />
         ))}
     </div>
   );
