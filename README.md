@@ -17,13 +17,13 @@
   cd post-sharing-fe
 ```
 
-#### create jar
+#### install packages
 
 ```bash
   npm install
 ```
 
-#### build docker-compose
+#### run app
 
 ```bash
   npm start
